@@ -1,4 +1,4 @@
-﻿node_modules/
+node_modules/
 build/
 dist/
 dist_*/
@@ -8,10 +8,6 @@ coverage/
 .env*
 !.env.example
 data/
-public/uploads/
-.npm-cache/
-
-# 构建缓存
 .npm-cache/
 dist_old_*/
 
