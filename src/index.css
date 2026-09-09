@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Kanit", sans-serif;
+  --color-accent-purple: #7621B0;
+  --color-accent-green: #1FD66E;
+  --color-primary-text: #0C0C0C;
+}
+
+/* 可后台修改的配色变量（默认值，运行时由后台覆盖） */
+:root {
+  --c-ink: #0C0C0C;
+  --c-accent: #7621B0;
+  --c-dot: #1FD66E;
+}
+
+html, body, #root {
+  background-color: #FFFFFF;
+  color: var(--c-ink);
+  font-family: "Kanit", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.hero-heading {
+  color: #FFFFFF;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 0.9;
+}
+
+.accent-mark {
+  color: var(--c-accent);
+  border-color: var(--c-dot);
+}
+
+.thin-outline-button {
+  border: 1px solid rgba(12, 12, 12, 0.28);
+  color: #0C0C0C;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(8px);
+}
+
+/* ---------- 后台管理面板：高端动效与规范 ---------- */
+@keyframes adminFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.admin-fade-up {
+  animation: adminFadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* 自定义滚动条（侧边栏 / 线索列表），提升精致感 */
+.admin-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+.admin-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+.admin-scroll::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.22); }
+.admin-scroll::-webkit-scrollbar-track { background: transparent; }

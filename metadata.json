@@ -1,0 +1,6 @@
+{
+  "name": "AI Archmage",
+  "description": "Premium portfolio and AI product field notes by the AI Archmage.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

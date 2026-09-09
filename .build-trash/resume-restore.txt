@@ -1,0 +1,242 @@
+  resume: [
+    {
+      "num": "01",
+      "period": "2025 – 2026 · 泰兴(泰州)",
+      "company": {
+        "zh": "泰兴新浩达开发有限公司（储能电池）",
+        "en": "Taixing XinhaoDa Dev Co. (Energy Storage)"
+      },
+      "title": {
+        "zh": "电商美工",
+        "en": "E-commerce Artist"
+      },
+      "label": {
+        "zh": "工业 / B2B 电商",
+        "en": "Industrial / B2B E-commerce"
+      },
+      "description": {
+        "zh": "储能电池行业电商视觉设计，工业产品图精修与店铺/官网视觉。",
+        "en": "E-commerce visual design for energy-storage batteries; industrial product retouching and store/official-site visuals."
+      }
+    },
+    {
+      "num": "02",
+      "period": "2024 – 2025 · 盐城",
+      "company": {
+        "zh": "盐城万凌科电商（儿童DIY玩具）",
+        "en": "Yancheng Wanlinke E-commerce (Kids DIY Toys)"
+      },
+      "title": {
+        "zh": "电商美工 / 做图",
+        "en": "E-commerce Artist"
+      },
+      "label": {
+        "zh": "玩具 / 亲子视觉",
+        "en": "Toy / Parenting Visuals"
+      },
+      "description": {
+        "zh": "儿童 DIY 玩具类目主图/详情页/活动视觉。",
+        "en": "Main images, detail pages and campaign visuals for kids DIY toy category."
+      }
+    },
+    {
+      "num": "03",
+      "period": "2022 – 2024 · 盐城",
+      "company": {
+        "zh": "原典一体化污水处理系统有限公司",
+        "en": "Yuandian Integrated Sewage Treatment Sys Co."
+      },
+      "title": {
+        "zh": "电商美工 / 做图",
+        "en": "E-commerce Artist / Visuals"
+      },
+      "label": {
+        "zh": "网页 + 电商视觉",
+        "en": "Web + E-commerce Visuals"
+      },
+      "description": {
+        "zh": "公司官网/电商图文设计（老板请不起 UI，由电商设计兼顾网页视觉）。以“做图”为主，兼顾简单网页视觉。",
+        "en": "Official-site and e-commerce graphics (no budget for a UI designer, so the e-commerce designer also handled web visuals). Image production focused, plus light web visuals."
+      }
+    },
+    {
+      "num": "04",
+      "period": "2021 – 2022 · 南京",
+      "company": {
+        "zh": "丰璞电商",
+        "en": "Fengpu E-commerce"
+      },
+      "title": {
+        "zh": "设计 + 视频剪辑",
+        "en": "Designer + Video Editor"
+      },
+      "label": {
+        "zh": "电商 / 视频",
+        "en": "E-commerce / Video"
+      },
+      "description": {
+        "zh": "电商主图/详情页设计，并负责商品展示视频剪辑。打通“静态图 + 短视频”内容产出链路。",
+        "en": "E-commerce main images/detail pages plus product showcase video editing; bridged static-image and short-video production."
+      }
+    },
+    {
+      "num": "05",
+      "period": "2020 – 2021 · 南京",
+      "company": {
+        "zh": "优艾丝（天猫/淘宝/京东）",
+        "en": "Youaisi (Tmall / Taobao / JD)"
+      },
+      "title": {
+        "zh": "平台视觉",
+        "en": "Platform Visual Designer"
+      },
+      "label": {
+        "zh": "多平台电商",
+        "en": "Multi-platform E-commerce"
+      },
+      "description": {
+        "zh": "多平台店铺视觉统一与大促页面设计。",
+        "en": "Unified multi-platform store visuals and big-sale campaign pages."
+      }
+    },
+    {
+      "num": "06",
+      "period": "2019 – 2020 · 南京",
+      "company": {
+        "zh": "南京奇好农产品",
+        "en": "Nanjing Qihao Produce"
+      },
+      "title": {
+        "zh": "运营兼美工 / 小程序",
+        "en": "Ops + Artist / Mini-program"
+      },
+      "label": {
+        "zh": "电商 / 小程序",
+        "en": "E-commerce / Mini-program"
+      },
+      "description": {
+        "zh": "独立设计微信小程序界面与推广物料，兼顾运营视觉。",
+        "en": "Independently designed WeChat mini-program UI and promo materials, also handling operation visuals."
+      }
+    },
+    {
+      "num": "07",
+      "period": "2016 – 2019 · 南京",
+      "company": {
+        "zh": "千言万语（食品/曲奇巧克力）",
+        "en": "Qianyanwan (Food / Cookies & Chocolate)"
+      },
+      "title": {
+        "zh": "电商美工",
+        "en": "E-commerce Artist"
+      },
+      "label": {
+        "zh": "食品视觉",
+        "en": "Food Visuals"
+      },
+      "description": {
+        "zh": "食品类目主图/详情页设计，强调食欲感与品牌调性。",
+        "en": "Main images/detail pages for food category, emphasizing appetite appeal and brand tone."
+      }
+    },
+    {
+      "num": "08",
+      "period": "2016 – 2019 · 南京",
+      "company": {
+        "zh": "龙居网（建材）",
+        "en": "Longju Web (Building Materials)"
+      },
+      "title": {
+        "zh": "电商美工",
+        "en": "E-commerce Artist"
+      },
+      "label": {
+        "zh": "产品精修 / 场景",
+        "en": "Product Retouch / Scenes"
+      },
+      "description": {
+        "zh": "建材类目产品图精修与场景合成，输出统一视觉。",
+        "en": "Building-material product retouching and scene compositing with consistent visuals."
+      }
+    },
+    {
+      "num": "09",
+      "period": "2016 – 2019 · 南京",
+      "company": {
+        "zh": "第八城（花茶）",
+        "en": "Dibache (Floral Tea)"
+      },
+      "title": {
+        "zh": "电商美工",
+        "en": "E-commerce Artist"
+      },
+      "label": {
+        "zh": "电商视觉",
+        "en": "E-commerce Visuals"
+      },
+      "description": {
+        "zh": "花茶店铺主图、详情页、活动视觉整体设计。建立店铺视觉规范，提升点击与转化。",
+        "en": "End-to-end floral-tea store visuals (main images, detail pages, campaigns); built visual standards to lift CTR and conversion."
+      }
+    },
+    {
+      "num": "10",
+      "period": "2015 – 2016 · 南京",
+      "company": {
+        "zh": "达内科技",
+        "en": "Dane Tech (Training)"
+      },
+      "title": {
+        "zh": "前端培训（未完结）",
+        "en": "Front-end Training (Unfinished)"
+      },
+      "label": {
+        "zh": "前端基础",
+        "en": "Front-end Basics"
+      },
+      "description": {
+        "zh": "学习 HTML/CSS/JS 前端基础，建立网页结构思维。未完结即转自学，并沿“前端 + 视觉”路径切入电商设计。",
+        "en": "Studied HTML/CSS/JS fundamentals and built web-structure thinking. Left unfinished to self-study, then pivoted into e-commerce design via the 'front-end + visuals' path."
+      }
+    },
+    {
+      "num": "11",
+      "period": "2014 – 2015 · 上海",
+      "company": {
+        "zh": "上海百安居「思源」专柜",
+        "en": "B&Q 'Siyuan' Counter (Shanghai)"
+      },
+      "title": {
+        "zh": "销售（深圳公司）",
+        "en": "Sales (Shenzhen-based Co.)"
+      },
+      "label": {
+        "zh": "销售 / 商务",
+        "en": "Sales / Business"
+      },
+      "description": {
+        "zh": "活性炭产品门店销售、客户咨询与需求挖掘。锻炼客户需求洞察与沟通表达，反哺后续“懂业务”的设计。",
+        "en": "In-store sales of activated-carbon products, customer consulting and needs mining; honed client insight and communication that later fed 'business-aware' design."
+      }
+    },
+    {
+      "num": "12",
+      "period": "2013 – 2014 · 高邮",
+      "company": {
+        "zh": "南京路友有限公司",
+        "en": "Nanjing Luyou Co."
+      },
+      "title": {
+        "zh": "园林景观设计",
+        "en": "Landscape Designer"
+      },
+      "label": {
+        "zh": "空间 / 景观",
+        "en": "Space / Landscape"
+      },
+      "description": {
+        "zh": "参与园林景观配套工程的方案图、施工图辅助绘制与景观效果图制作。奠定空间/景观效果图功底，是后续 3D 渲染强项的基础。",
+        "en": "Assisted with landscape supporting-engineering schematic/construction drawings and renderings; built the spatial/landscape foundation behind the later 3D-rendering strength."
+      }
+    }
+  ],

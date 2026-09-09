@@ -1,0 +1,432 @@
+{
+  "brand": {
+    "nameZh": "高祥",
+    "titleZh": "AI设计魔法师",
+    "nameEn": "Gao",
+    "titleEn": "AI DESIGN ARCHMAGE",
+    "tagline": {
+      "zh": "高祥 AI设计魔法师",
+      "en": "Gao AI Design Archmage"
+    }
+  },
+  "hero": {
+    "subtitle": {
+      "zh": "人 + AI 承接电商设计 / 包装 / 品牌全案 / AI 视频，交付快、审美稳、改稿不慌。",
+      "en": "Human + AI delivery for e-commerce, packaging, brand identity and AI video — fast turnaround, solid taste, stress-free revisions."
+    },
+    "ctaText": {
+      "zh": "免费资料包",
+      "en": "Free Kit"
+    },
+    "poster": "/hero/portfolio.png",
+    "video": "/hero/hero-particles.mp4",
+    "videoScrub": {
+      "enabled": true,
+      "mode": "wheel",
+      "axis": "y",
+      "step": 0.05,
+      "smooth": true,
+      "autoResume": true,
+      "hint": true
+    }
+  },
+  "nav": {
+    "works": {
+      "zh": "作品预览",
+      "en": "Works Preview"
+    },
+    "services": {
+      "zh": "接单服务",
+      "en": "Services"
+    },
+    "about": {
+      "zh": "关于我",
+      "en": "About"
+    }
+  },
+  "navOrder": [
+    "works",
+    "services",
+    "about"
+  ],
+  "serviceCats": [
+    {
+      "name": {
+        "zh": "电商设计",
+        "en": "E-commerce Design"
+      },
+      "image": "",
+      "link": "#marquee-section",
+      "desc": {
+        "zh": "主图 / 详情页 / 直通车，人+AI 快速出图改稿",
+        "en": "Main image, detail page, top ads — human + AI fast turnaround"
+      }
+    },
+    {
+      "name": {
+        "zh": "包装设计",
+        "en": "Packaging Design"
+      },
+      "image": "",
+      "link": "#marquee-section",
+      "desc": {
+        "zh": "礼盒 / 标签 / 三维效果，落地可用的包装视觉",
+        "en": "Gift box, label, 3D mockups — production-ready packaging visuals"
+      }
+    },
+    {
+      "name": {
+        "zh": "品牌全案",
+        "en": "Brand Identity"
+      },
+      "image": "",
+      "link": "#marquee-section",
+      "desc": {
+        "zh": "Logo / VI / 规范，从 0 到 1 的品牌体系",
+        "en": "Logo, VI, guidelines — brand system from zero to one"
+      }
+    },
+    {
+      "name": {
+        "zh": "AI 视频",
+        "en": "AI Video"
+      },
+      "image": "",
+      "link": "#marquee-section",
+      "desc": {
+        "zh": "口播 / 产品 / 广告，AI 生成加剪辑交付",
+        "en": "Spokesperson, product, ads — AI generation + editing"
+      }
+    },
+    {
+      "name": {
+        "zh": "空间效果",
+        "en": "Spatial Design"
+      },
+      "image": "",
+      "link": "#marquee-section",
+      "desc": {
+        "zh": "景观 / 室内 / 效果图，发挥景观设计老本行",
+        "en": "Landscape, interior, renderings — your landscaping core skill"
+      }
+    }
+  ],
+  "contact": {
+    "wechat": "你的微信号",
+    "email": "你的邮箱@example.com",
+    "phone": ""
+  },
+  "social": {
+    "github": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "footer": {
+    "desc": {
+      "zh": "一人设计公司，用 AI 放大交付力。电商 / 包装 / 品牌 / 视频，接单交付。",
+      "en": "A solo design studio powered by AI. E-commerce, packaging, brand and video commissions."
+    },
+    "copyright": {
+      "zh": "保留所有权利。",
+      "en": "All rights reserved."
+    }
+  },
+  "theme": {
+    "ink": "#0C0C0C",
+    "accent": "#7621B0",
+    "dot": "#1FD66E"
+  },
+  "sectionTitleFont": {
+    "family": "sans",
+    "weight": 900,
+    "scale": 1,
+    "letterSpacing": -0.02
+  },
+  "sections": {
+    "works": {
+      "zh": "作品预览",
+      "en": "Works Preview"
+    },
+    "services": {
+      "zh": "接单服务",
+      "en": "Services"
+    },
+    "about": {
+      "zh": "关于我",
+      "en": "About"
+    }
+  },
+  "aboutBio": {
+    "zh": "12年设计经验，从电商美工到一人 AI 设计公司。擅长 人+AI 协同交付电商视觉、包装、品牌全案与 AI 视频，并用景观设计功底做空间效果图。",
+    "en": "8 years in design, from e-commerce artist to a solo AI design studio. I deliver e-commerce visuals, packaging, brand identity and AI video with human+AI, and apply my landscaping background to spatial renderings."
+  },
+  "aboutMeta": {
+    "zh": "句容农林职业技术学院 · 风景园林　|　景观设计师证书 · C1 驾照",
+    "en": "Jurong Agriculture & Forestry Vocational College · Landscape Architecture　|　Landscape Designer Certificate · C1 License"
+  },
+  "worksGallery": [
+    "https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif",
+    "https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif",
+    "https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif",
+    "https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif",
+    "https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif",
+    "https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif",
+    "https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif",
+    "https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif",
+    "https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif",
+    "https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif",
+    "https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif",
+    "https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif",
+    "https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif",
+    "https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif",
+    "https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif",
+    "https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif",
+    "https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif",
+    "https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif",
+    "https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif",
+    "https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif",
+    "https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif"
+  ],
+  "resume": [
+    {
+      "num": "01",
+      "period": "2025 – 至今",
+      "company": {
+        "zh": "一人设计公司（自由接单）",
+        "en": "Solo Design Studio"
+      },
+      "title": {
+        "zh": "独立设计师",
+        "en": "Independent Designer"
+      },
+      "label": {
+        "zh": "全类目",
+        "en": "Full Scope"
+      },
+      "description": {
+        "zh": "以「人+AI」模式独立承接电商视觉、包装、品牌与 AI 视频，从沟通到交付一人闭环，交付快、改稿稳。",
+        "en": "Solo human+AI delivery across e-commerce, packaging, brand and AI video — one-person loop from brief to delivery."
+      }
+    },
+    {
+      "num": "02",
+      "period": "2024 – 2025",
+      "company": {
+        "zh": "盐城万凌客电商",
+        "en": "Yancheng Wanlingke E-commerce"
+      },
+      "title": {
+        "zh": "电商美工 / 设计师",
+        "en": "E-commerce Artist / Designer"
+      },
+      "label": {
+        "zh": "电商视觉",
+        "en": "E-commerce Visual"
+      },
+      "description": {
+        "zh": "负责店铺主图、详情页与活动视觉，人+AI 提效交付，稳定支撑日常上新与大促。",
+        "en": "Owned main images, detail pages and campaign visuals; human+AI speed-up for daily launches and promotions."
+      }
+    },
+    {
+      "num": "03",
+      "period": "2022 – 2024",
+      "company": {
+        "zh": "原典环保科技",
+        "en": "Yuandian Environmental Tech"
+      },
+      "title": {
+        "zh": "电商视觉设计",
+        "en": "E-commerce Visual Designer"
+      },
+      "label": {
+        "zh": "电商视觉",
+        "en": "E-commerce Visual"
+      },
+      "description": {
+        "zh": "主导店铺整体视觉与详情页体系，稳定输出品牌调性，沉淀可复用模板。",
+        "en": "Led store-wide visual system and detail-page framework, keeping brand tone consistent with reusable templates."
+      }
+    },
+    {
+      "num": "04",
+      "period": "2021 – 2022",
+      "company": {
+        "zh": "丰璞电商",
+        "en": "Fengpu E-commerce"
+      },
+      "title": {
+        "zh": "电商美工 + 视频剪辑",
+        "en": "Artist + Video Editor"
+      },
+      "label": {
+        "zh": "电商 / 视频",
+        "en": "E-commerce / Video"
+      },
+      "description": {
+        "zh": "商品展示视频剪辑兼主图设计，打通图文与短视频，提升转化表现。",
+        "en": "Cut product showcase videos and designed main images, bridging stills and short video for better conversion."
+      }
+    },
+    {
+      "num": "05",
+      "period": "2020 – 2021",
+      "company": {
+        "zh": "优艾丝（天猫淘宝京东）",
+        "en": "Youaisi (Tmall / Taobao / JD)"
+      },
+      "title": {
+        "zh": "电商美工",
+        "en": "E-commerce Artist"
+      },
+      "label": {
+        "zh": "电商视觉",
+        "en": "E-commerce Visual"
+      },
+      "description": {
+        "zh": "多平台店铺美工，主图详情页批量交付，熟悉各平台视觉规范。",
+        "en": "Multi-platform store artist delivering main images and detail pages in bulk, fluent with each platform's specs."
+      }
+    },
+    {
+      "num": "06",
+      "period": "2019 – 2020",
+      "company": {
+        "zh": "南京奇好农产品",
+        "en": "Nanjing Qihao Produce"
+      },
+      "title": {
+        "zh": "运营兼美工",
+        "en": "Operations + Artist"
+      },
+      "label": {
+        "zh": "电商 / 小程序",
+        "en": "E-commerce / Mini-program"
+      },
+      "description": {
+        "zh": "运营兼美工，搭建微信小程序与基础视觉规范，兼顾内容与转化。",
+        "en": "Ran operations and artwork, built the WeChat mini-program and baseline visual standards balancing content and conversion."
+      }
+    },
+    {
+      "num": "07",
+      "period": "2016 – 2019",
+      "company": {
+        "zh": "第八城旗舰店",
+        "en": "Dibache Flagship Store"
+      },
+      "title": {
+        "zh": "电商美工",
+        "en": "E-commerce Artist"
+      },
+      "label": {
+        "zh": "电商视觉",
+        "en": "E-commerce Visual"
+      },
+      "description": {
+        "zh": "电商详情页与主图设计，熟悉大促节奏与高转化版式。",
+        "en": "Detail pages and main images for e-commerce; fluent with promotion cadence and high-converting layouts."
+      }
+    },
+    {
+      "num": "08",
+      "period": "2016 – 2019",
+      "company": {
+        "zh": "龙居网",
+        "en": "Longju Web"
+      },
+      "title": {
+        "zh": "电商美工",
+        "en": "E-commerce Artist"
+      },
+      "label": {
+        "zh": "电商视觉",
+        "en": "E-commerce Visual"
+      },
+      "description": {
+        "zh": "家居类目视觉设计，主打场景化详情页与风格统一。",
+        "en": "Home-category visuals with scene-based detail pages and consistent styling."
+      }
+    },
+    {
+      "num": "09",
+      "period": "2016 – 2019",
+      "company": {
+        "zh": "千言万语旗舰店",
+        "en": "Qianyanwan Flagship Store"
+      },
+      "title": {
+        "zh": "电商美工",
+        "en": "E-commerce Artist"
+      },
+      "label": {
+        "zh": "电商视觉",
+        "en": "E-commerce Visual"
+      },
+      "description": {
+        "zh": "多品类店铺美工，主图与活动图快速产出，保质保量。",
+        "en": "Multi-category store artist producing main images and campaign art quickly without sacrificing quality."
+      }
+    },
+    {
+      "num": "10",
+      "period": "2014 – 2016",
+      "company": {
+        "zh": "渠道销售",
+        "en": "Channel Sales"
+      },
+      "title": {
+        "zh": "销售代表",
+        "en": "Sales Representative"
+      },
+      "label": {
+        "zh": "销售 / 商务",
+        "en": "Sales / Business"
+      },
+      "description": {
+        "zh": "负责客户对接与渠道维护，锻炼沟通与需求洞察，反哺后续设计落地。",
+        "en": "Client-facing and channel maintenance; honed communication and needs insight that feed later design work."
+      }
+    },
+    {
+      "num": "11",
+      "period": "2012 – 2014",
+      "company": {
+        "zh": "景观设计（景观配套工程）",
+        "en": "Landscape Design"
+      },
+      "title": {
+        "zh": "景观设计师",
+        "en": "Landscape Designer"
+      },
+      "label": {
+        "zh": "空间 / 景观",
+        "en": "Spatial / Landscape"
+      },
+      "description": {
+        "zh": "参与景观配套工程设计与效果图绘制，奠定空间审美与三维表现功底。",
+        "en": "Worked on landscape ancillary engineering and renderings, building spatial aesthetics and 3D skills."
+      }
+    },
+    {
+      "num": "12",
+      "period": "2008 – 2013",
+      "company": {
+        "zh": "风景园林专业（句容农林职业技术学院）",
+        "en": "Landscape Architecture Major"
+      },
+      "title": {
+        "zh": "专业学习",
+        "en": "Study"
+      },
+      "label": {
+        "zh": "学历",
+        "en": "Education"
+      },
+      "description": {
+        "zh": "系统学习风景园林，取得景观设计师证书，为空间效果图打下专业基础。",
+        "en": "Systematic study of landscape architecture and a Landscape Designer certificate — the base for spatial renderings."
+      }
+    }
+  ]
+}
