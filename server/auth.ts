@@ -1,30 +1,49 @@
-import crypto from 'crypto';
+﻿import crypto from 'crypto';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import fs from 'fs';
 import type { Request, Response, NextFunction } from 'express';
 import { config } from './config';
 
 export const SESSION_COOKIE = 'admin_session';
-const SESSION_TTL_MS = 15 * 60 * 1000; // 15 分钟滑动会话
+const SESSION_TTL_MS = 15 * 60 * 1000;
+const FIXED_SALT = 'ai-archmage-local-dev-salt-v1';
 
-// ---------- 密码哈希（scrypt，内置、加盐、恒定时间比对，零原生依赖） ----------
-function scryptHash(password: string, salt: string): string {
-  return crypto.scryptSync(password, salt, 64).toString('hex');
+const HASH_PATH = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'data', 'admin_password.hash');
+
+function scryptHash(password: string): string {
+  return crypto.scryptSync(password, FIXED_SALT, 64).toString('hex');
 }
 
-export function hashPassword(password: string): string {
-  const salt = crypto.randomBytes(16).toString('hex');
-  return `${salt}:${scryptHash(password, salt)}`;
+export function getStoredHash(): string | null {
+  try {
+    if (fs.existsSync(HASH_PATH)) {
+      return fs.readFileSync(HASH_PATH, 'utf8').trim();
+    }
+  } catch { /* ignore */ }
+  return null;
+}
+
+export function saveHash(hash: string): void {
+  try {
+    const dir = path.dirname(HASH_PATH);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(HASH_PATH, hash);
+  } catch { /* ignore */ }
+}
+
+export function computePasswordHash(password: string): string {
+  return scryptHash(password);
 }
 
 export function verifyPassword(password: string, stored: string): boolean {
-  const [salt, hash] = stored.split(':');
-  if (!salt || !hash) return false;
-  const calc = scryptHash(password, salt);
+  const calc = scryptHash(password);
   const a = Buffer.from(calc, 'hex');
-  const b = Buffer.from(hash, 'hex');
-  return a.length === b.length && crypto.timingSafeEqual(a, b);
+  const b = Buffer.from(stored, 'hex');
+  if (a.length !== b.length) return false;
+  return crypto.timingSafeEqual(a, b);
 }
 
-// ---------- 会话 Cookie（HMAC 签名，防篡改） ----------
 function signSession(secret: string): string {
   const payload = { a: 1, exp: Date.now() + SESSION_TTL_MS };
   const body = Buffer.from(JSON.stringify(payload)).toString('base64url');
@@ -59,7 +78,6 @@ function getCookie(req: Request, name: string): string | undefined {
   return undefined;
 }
 
-/** 鉴权中间件：本机免密（AUTH_ENABLED=false）直接放行；否则校验会话 Cookie。 */
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
   if (!config.authEnabled) return next();
   const token =
@@ -68,18 +86,29 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
       ? req.headers.authorization.slice(7)
       : undefined);
   if (verifySession(token, config.sessionSecret)) return next();
-  return res.status(401).json({ error: { code: 'UNAUTHORIZED', message: '未授权' } });
+  return res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Unauthorized' } });
 }
 
-/** 登录：仅当 AUTH_ENABLED 时可用；成功下发签名会话 Cookie。 */
 export function loginHandler(req: Request, res: Response) {
   if (!config.authEnabled) {
-    return res.status(400).json({ error: { code: 'AUTH_DISABLED', message: '当前未启用鉴权' } });
+    const token = signSession(config.sessionSecret);
+    res.cookie(SESSION_COOKIE, token, {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: !!config.trustProxy,
+      maxAge: SESSION_TTL_MS,
+    });
+    return res.json({ ok: true });
   }
+
   const password = (req.body as any)?.password || '';
-  const expected = hashPassword(config.adminPassword);
-  if (!verifyPassword(password, expected)) {
-    return res.status(401).json({ error: { code: 'INVALID_CREDENTIALS', message: '密码错误' } });
+  let storedHash = getStoredHash();
+  if (!storedHash) {
+    storedHash = computePasswordHash(config.adminPassword);
+    saveHash(storedHash);
+  }
+  if (!verifyPassword(password, storedHash)) {
+    return res.status(401).json({ error: { code: 'INVALID_CREDENTIALS', message: 'Incorrect password' } });
   }
   const token = signSession(config.sessionSecret);
   res.cookie(SESSION_COOKIE, token, {
@@ -90,3 +119,4 @@ export function loginHandler(req: Request, res: Response) {
   });
   return res.json({ ok: true });
 }
+

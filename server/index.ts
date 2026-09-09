@@ -141,6 +141,12 @@ export function createApp() {
   // 登录（仅 AUTH_ENABLED）
   app.post('/api/v1/auth/login', (req, res) => loginHandler(req, res));
 
+  // 登出
+  app.post('/api/v1/auth/logout', (req, res) => {
+    res.clearCookie('admin_session');
+    res.json({ ok: true });
+  });
+
   // 接单线索：公开提交（限流 + 校验 + 去重 + 通知）
   app.post(
     '/api/v1/leads',

@@ -25,6 +25,14 @@ interface SiteConfigContextType {
   config: SiteConfig;
   loaded: boolean;
   save: (next: SiteConfig) => Promise<void>;
+  /** 是否启用密码认证 */
+  authEnabled: boolean;
+  /** 当前是否已登录 */
+  loggedIn: boolean;
+  /** 登录：输入密码，成功后写入 session cookie */
+  login: (password: string) => Promise<boolean>;
+  /** 退出登录：清除 session cookie */
+  logout: () => Promise<void>;
 }
 
 const SiteConfigContext = createContext<SiteConfigContextType | undefined>(
@@ -38,25 +46,58 @@ export function SiteConfigProvider({
 }) {
   const [config, setConfig] = useState<SiteConfig>(defaultSiteConfig);
   const [loaded, setLoaded] = useState(false);
+  const [authEnabled, setAuthEnabled] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  // 检查认证状态
+  const checkAuth = useCallback(async () => {
+    try {
+      const r = await fetch("/api/config", { cache: "no-store", credentials: "include" });
+      if (r.status === 401) {
+        setAuthEnabled(true);
+        setLoggedIn(false);
+      } else if (r.ok) {
+        setAuthEnabled(true);
+        setLoggedIn(true);
+        // 重新加载配置
+        const json = await r.json();
+        if (json && typeof json === "object" && Object.keys(json).length) {
+          setConfig(deepMerge(defaultSiteConfig, json));
+        }
+        setLoaded(true);
+      } else {
+        setAuthEnabled(false);
+        setLoaded(true);
+      }
+    } catch {
+      setAuthEnabled(false);
+      setLoaded(true);
+    }
+  }, []);
 
   useEffect(() => {
     let active = true;
-    fetch("/api/config", { cache: "no-store" })
-      .then((r) => (r.ok ? r.json() : {}))
-      .then((data) => {
-        if (!active) return;
-        if (data && typeof data === "object" && Object.keys(data).length) {
-          setConfig(deepMerge(defaultSiteConfig, data));
-        }
-        setLoaded(true);
-      })
-      .catch(() => {
-        if (active) setLoaded(true);
-      });
-    return () => {
-      active = false;
-    };
-  }, []);
+    // 先检查认证状态
+    checkAuth().then(() => {
+      if (!active) return;
+      // 如果未认证且需要认证，不自动加载配置；否则正常加载
+      if (!authEnabled || loggedIn) {
+        fetch("/api/config", { cache: "no-store", credentials: "include" })
+          .then((r) => (r.ok ? r.json() : {}))
+          .then((data) => {
+            if (!active) return;
+            if (data && typeof data === "object" && Object.keys(data).length) {
+              setConfig(deepMerge(defaultSiteConfig, data));
+            }
+            setLoaded(true);
+          })
+          .catch(() => {
+            if (active) setLoaded(true);
+          });
+      }
+    });
+    return () => { active = false; };
+  }, [authEnabled, loggedIn, checkAuth]);
 
   // 把配色写入 CSS 变量，全站即时生效
   useEffect(() => {
@@ -66,11 +107,44 @@ export function SiteConfigProvider({
     root.style.setProperty("--c-dot", config.theme.dot);
   }, [config.theme]);
 
-  // 免密保存：后台无需密码即可写回（按需求：进入后台不输入密码）
+  const login = useCallback(async (password: string): Promise<boolean> => {
+    const r = await fetch("/api/v1/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ password }),
+    });
+    if (r.ok) {
+      setLoggedIn(true);
+      // 登录后加载配置
+      fetch("/api/config", { cache: "no-store", credentials: "include" })
+        .then((r) => (r.ok ? r.json() : {}))
+        .then((data) => {
+          if (data && typeof data === "object" && Object.keys(data).length) {
+            setConfig(deepMerge(defaultSiteConfig, data));
+          }
+          setLoaded(true);
+        })
+        .catch(() => setLoaded(true));
+      return true;
+    }
+    return false;
+  }, []);
+
+  const logout = useCallback(async () => {
+    // 清除 cookie（让服务端置空）
+    await fetch("/api/v1/auth/logout", { method: "POST", credentials: "include" }).catch(() => {});
+    document.cookie = "admin_session=; path=/; max-age=0";
+    setLoggedIn(false);
+    setLoaded(false);
+    setConfig(defaultSiteConfig);
+  }, []);
+
   const save = useCallback(async (next: SiteConfig) => {
     const res = await fetch("/api/config", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify({ config: next }),
     });
     if (!res.ok) {
@@ -81,7 +155,7 @@ export function SiteConfigProvider({
   }, []);
 
   return (
-    <SiteConfigContext.Provider value={{ config, loaded, save }}>
+    <SiteConfigContext.Provider value={{ config, loaded, save, authEnabled, loggedIn, login, logout }}>
       {children}
     </SiteConfigContext.Provider>
   );

@@ -355,7 +355,7 @@ function ImageField({ label, value, onChange, hint }: { label: string; value: st
           r.readAsDataURL(file);
         });
       }
-      const res = await fetch("/api/upload", {
+      const res = await fetch("/api/upload", { credentials: "include",
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ filename: file.name, data: dataUrl }),
@@ -804,7 +804,58 @@ function Card({ title, desc, icon, actions, children }: { title: string; desc?: 
  * 主组件（分页式后台：点击侧边栏换页，整页不滚动）
  * ========================================================== */
 export default function AdminPage() {
-  const { config, loaded, save } = useSiteConfig();
+  const { config, loaded, save, authEnabled, loggedIn, login, logout } = useSiteConfig();
+  // 登录状态
+  const [loginPwd, setLoginPwd] = useState('');
+  const [loginErr, setLoginErr] = useState('');
+  const [loggingIn, setLoggingIn] = useState(false);
+
+  const handleLogin = async () => {
+    if (!loginPwd.trim()) return;
+    setLoggingIn(true);
+    setLoginErr('');
+    const ok = await login(loginPwd);
+    setLoggingIn(false);
+    if (!ok) setLoginErr('密码错误，请重试');
+  };
+
+  // 登录表单
+  if (authEnabled && !loggedIn) {
+    return (
+      <div className='h-screen overflow-hidden bg-[#0a0b0e] text-white flex items-center justify-center'>
+        <div className='w-full max-w-sm mx-4'>
+          <div className='text-center mb-8'>
+            <div className='w-14 h-14 rounded-2xl bg-gradient-to-br from-[#7621B0] to-[#1FD66E] grid place-items-center font-black text-white text-2xl shadow-lg shadow-[#7621B0]/30 mx-auto mb-4'>G</div>
+            <h1 className='text-xl font-bold text-white'>管理后台</h1>
+            <p className='text-sm text-white/40 mt-1'>请输入密码继续</p>
+          </div>
+          <div className='rounded-2xl border border-white/[0.07] bg-[#11141b] p-6 shadow-xl shadow-black/30'>
+            <div className='flex gap-2'>
+              <input
+                type='password'
+                value={loginPwd}
+                onChange={(e) => { setLoginPwd(e.target.value); setLoginErr(''); }}
+                onKeyDown={(e) => { if (e.key === 'Enter') handleLogin(); }}
+                placeholder='密码'
+                autoComplete='current-password'
+                className='flex-1 px-4 py-2.5 rounded-xl bg-[#0f1117] border border-white/10 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#7621B0] focus:ring-4 focus:ring-[#7621B0]/15 transition-all'
+                autoFocus
+              />
+              <button
+                type='button'
+                onClick={handleLogin}
+                disabled={loggingIn || !loginPwd.trim()}
+                className='px-5 py-2.5 rounded-xl bg-[#7621B0] hover:bg-[#8a2bd0] text-white text-sm font-semibold shadow-lg shadow-[#7621B0]/25 transition-all disabled:opacity-50 disabled:active:scale-100'
+              >
+                {loggingIn ? '验证中…' : '登录'}
+              </button>
+            </div>
+            {loginErr && <p className='mt-3 text-[12px] text-red-400'>{loginErr}</p>}
+          </div>
+        </div>
+      </div>
+    );
+  }
   const [draft, setDraft] = useState<SiteConfig | null>(null);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState("");
@@ -852,7 +903,7 @@ export default function AdminPage() {
       offset: String(page * LEAD_PAGE_SIZE),
       ...(filter !== "all" ? { status: filter } : {}),
     });
-    fetch(`/api/v1/leads?${params}`, { cache: "no-store" })
+    fetch(`/api/v1/leads?${params}`, { cache: "no-store", credentials: "include" })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error("读取失败"))))
       .then((json: any) => {
         // 后端返回 { data: LeadView[], total: number, count: number }
@@ -870,7 +921,7 @@ export default function AdminPage() {
   }, [loadLeads, leadPage, leadFilter]);
 
   const updateLeadStatus = useCallback((id: number, status: string) => {
-    return fetch(`/api/v1/leads/${id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status }) })
+    return fetch(`/api/v1/leads/${id}`, { method: "PATCH", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status }) })
       .then((r) => {
         if (!r.ok) throw new Error("更新失败");
         setLeads((prev) => prev.map((x) => (x.id === id ? { ...x, status } : x)));
