@@ -1,4 +1,4 @@
-node_modules/
+﻿node_modules/
 build/
 dist/
 dist_*/
@@ -10,3 +10,11 @@ coverage/
 data/
 public/uploads/
 .npm-cache/
+
+# 构建缓存
+.npm-cache/
+dist_old_*/
+
+# 大媒体文件（部署后从 Railway 上传）
+public/hero/portfolio.png
+public/hero/hero-particles.mp4
