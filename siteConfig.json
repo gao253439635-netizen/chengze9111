@@ -1,7 +1,7 @@
 {
   "brand": {
-    "nameZh": "高祥",
-    "titleZh": "AI设计魔法师",
+    "nameZh": "Gao",
+    "titleZh": "chengze",
     "nameEn": "Gao",
     "titleEn": "AI DESIGN ARCHMAGE",
     "tagline": {
@@ -18,30 +18,43 @@
       "zh": "免费资料包",
       "en": "Free Kit"
     },
-    "poster": "/hero/portfolio.png",
+    "heading": {
+      "zh": "",
+      "en": ""
+    },
     "video": "/hero/hero-particles.mp4",
+    "poster": "",
     "videoScrub": {
-      "enabled": true,
-      "mode": "wheel",
+      "enabled": false,
+      "mode": "loop",
       "axis": "y",
       "step": 0.05,
       "smooth": true,
       "autoResume": true,
-      "hint": true
+      "hint": false
     }
   },
   "nav": {
     "works": {
-      "zh": "作品预览",
-      "en": "Works Preview"
+      "label": {
+        "zh": "作品预览",
+        "en": "Works Preview"
+      },
+      "link": "#marquee-section"
     },
     "services": {
-      "zh": "接单服务",
-      "en": "Services"
+      "label": {
+        "zh": "接单服务",
+        "en": "Services"
+      },
+      "link": "#services-section"
     },
     "about": {
-      "zh": "关于我",
-      "en": "About"
+      "label": {
+        "zh": "关于我",
+        "en": "About"
+      },
+      "link": "#resume-section"
     }
   },
   "navOrder": [
@@ -49,72 +62,242 @@
     "services",
     "about"
   ],
+  "adminNavOrder": [
+    "hero",
+    "brand",
+    "sections",
+    "cats",
+    "gallery",
+    "resume",
+    "footer",
+    "theme",
+    "leads"
+  ],
+  "adminNav": {
+    "groups": [
+      {
+        "id": "content",
+        "label": {
+          "zh": "内容管理",
+          "en": "Content"
+        },
+        "items": [
+          {
+            "id": "brand",
+            "label": {
+              "zh": "导航区域",
+              "en": "Navigation"
+            },
+            "icon": "compass"
+          },
+          {
+            "id": "hero",
+            "label": {
+              "zh": "首屏文案",
+              "en": "Hero Text"
+            },
+            "icon": "hero"
+          },
+          {
+            "id": "cats",
+            "label": {
+              "zh": "接单类目",
+              "en": "Services"
+            },
+            "icon": "tag"
+          },
+          {
+            "id": "sections",
+            "label": {
+              "zh": "区块标题",
+              "en": "Section Titles"
+            },
+            "icon": "heading"
+          },
+          {
+            "id": "gallery",
+            "label": {
+              "zh": "作品预览",
+              "en": "Gallery"
+            },
+            "icon": "photo"
+          },
+          {
+            "id": "resume",
+            "label": {
+              "zh": "关于我",
+              "en": "About"
+            },
+            "icon": "user"
+          },
+          {
+            "id": "footer",
+            "label": {
+              "zh": "页脚",
+              "en": "Footer"
+            },
+            "icon": "flag"
+          }
+        ]
+      },
+      {
+        "id": "appearance",
+        "label": {
+          "zh": "外观",
+          "en": "Appearance"
+        },
+        "items": [
+          {
+            "id": "theme",
+            "label": {
+              "zh": "配色",
+              "en": "Theme"
+            },
+            "icon": "swatch"
+          }
+        ]
+      },
+      {
+        "id": "data",
+        "label": {
+          "zh": "数据",
+          "en": "Data"
+        },
+        "items": [
+          {
+            "id": "leads",
+            "label": {
+              "zh": "接单线索",
+              "en": "Leads"
+            },
+            "icon": "inbox"
+          }
+        ]
+      }
+    ]
+  },
   "serviceCats": [
     {
       "name": {
         "zh": "电商设计",
         "en": "E-commerce Design"
       },
-      "image": "",
+      "image": "/uploads/_____________202608221139_mt3u0vtshm5taj.jpg",
       "link": "#marquee-section",
       "desc": {
         "zh": "主图 / 详情页 / 直通车，人+AI 快速出图改稿",
-        "en": "Main image, detail page, top ads — human + AI fast turnaround"
-      }
+        "en": ""
+      },
+      "imageRatio": "16:9"
     },
     {
       "name": {
-        "zh": "包装设计",
-        "en": "Packaging Design"
+        "zh": "平面设计",
+        "en": "Graphic Design"
       },
-      "image": "",
+      "image": "/uploads/_____________202608221139_2_mt3u0zcu1665up.jpg",
       "link": "#marquee-section",
       "desc": {
-        "zh": "礼盒 / 标签 / 三维效果，落地可用的包装视觉",
-        "en": "Gift box, label, 3D mockups — production-ready packaging visuals"
-      }
+        "zh": "Logo / VI / 海报 / 物料，系统化品牌视觉",
+        "en": ""
+      },
+      "imageRatio": "16:9"
     },
     {
       "name": {
-        "zh": "品牌全案",
-        "en": "Brand Identity"
+        "zh": "景观 / 空间设计",
+        "en": "Landscape & Spatial Design"
       },
-      "image": "",
+      "image": "/uploads/_____________202608221139_3_mt3u13q9gz5td2.jpg",
       "link": "#marquee-section",
       "desc": {
-        "zh": "Logo / VI / 规范，从 0 到 1 的品牌体系",
-        "en": "Logo, VI, guidelines — brand system from zero to one"
-      }
+        "zh": "景观 / 室内 / 效果图，园林科班直接落地",
+        "en": ""
+      },
+      "imageRatio": "16:9"
     },
     {
       "name": {
-        "zh": "AI 视频",
-        "en": "AI Video"
+        "zh": "网页 UI / 前端",
+        "en": "Web UI / Front-end"
       },
-      "image": "",
+      "image": "/uploads/_____________202608221139_4_mt3u0qjggwizat.jpg",
       "link": "#marquee-section",
       "desc": {
-        "zh": "口播 / 产品 / 广告，AI 生成加剪辑交付",
-        "en": "Spokesperson, product, ads — AI generation + editing"
-      }
+        "zh": "官网 / 后台 UI + React / Vite 前端落地",
+        "en": ""
+      },
+      "imageRatio": "16:9"
     },
     {
       "name": {
-        "zh": "空间效果",
-        "en": "Spatial Design"
+        "zh": "3D 建模 / 渲染",
+        "en": "3D Modeling & Rendering"
       },
-      "image": "",
+      "image": "/uploads/_____________202608221139_5_mt3u0mszmgadam.jpg",
       "link": "#marquee-section",
       "desc": {
-        "zh": "景观 / 室内 / 效果图，发挥景观设计老本行",
-        "en": "Landscape, interior, renderings — your landscaping core skill"
+        "zh": "产品建模 / 渲染 / 场景效果图",
+        "en": ""
+      },
+      "imageRatio": "16:9"
+    },
+    {
+      "name": {
+        "zh": "视频设计",
+        "en": "Video Design"
+      },
+      "image": "/uploads/_____________2K_202608221253_mt3xpgsu24ope0.jpg",
+      "link": "#marquee-section",
+      "desc": {
+        "zh": "口播 / 产品 / 广告片，AI 生成 + 剪辑交付",
+        "en": ""
+      },
+      "imageRatio": "16:9"
+    },
+    {
+      "name": {
+        "zh": "MCU 嵌入式开发",
+        "en": "MCU Embedded Development"
+      },
+      "image": "/uploads/_____________2K_202608221253__1__mt3xpw5p29vgbj.jpg",
+      "link": "#marquee-section",
+      "desc": {
+        "zh": "单片机 / 传感器 / 智能硬件小项目",
+        "en": ""
+      },
+      "imageRatio": "16:9"
+    },
+    {
+      "name": {
+        "zh": "FDE 前线部署",
+        "en": "FDE Field Deployment"
+      },
+      "image": "/uploads/_______________________202608221139_mt3u1i5r4ebz4k.jpg",
+      "link": "#marquee-section",
+      "desc": {
+        "zh": "现场部署 / 联调 / 远程交付",
+        "en": ""
+      },
+      "imageRatio": "16:9"
+    },
+    {
+      "name": {
+        "zh": "正在开发...",
+        "en": ""
+      },
+      "image": "",
+      "link": "",
+      "desc": {
+        "zh": "",
+        "en": ""
       }
     }
   ],
   "contact": {
-    "wechat": "你的微信号",
-    "email": "你的邮箱@example.com",
-    "phone": ""
+    "wechat": "xiang151911",
+    "email": "253439635@qq.com",
+    "phone": "15365657928"
   },
   "social": {
     "github": "",
@@ -129,18 +312,84 @@
     "copyright": {
       "zh": "保留所有权利。",
       "en": "All rights reserved."
-    }
+    },
+    "backToTopLabel": {
+      "zh": "回到顶部",
+      "en": "Back to Top"
+    },
+    "sitemapTitle": {
+      "zh": "站点地图",
+      "en": "Sitemap"
+    },
+    "sitemap": [
+      {
+        "label": {
+          "zh": "回到顶部",
+          "en": "Back to Top"
+        },
+        "link": "#hero-section"
+      },
+      {
+        "label": {
+          "zh": "作品预览",
+          "en": "Works Preview"
+        },
+        "link": "#marquee-section"
+      },
+      {
+        "label": {
+          "zh": "接单服务",
+          "en": "Services"
+        },
+        "link": "#services-section"
+      },
+      {
+        "label": {
+          "zh": "关于我",
+          "en": "About"
+        },
+        "link": "#resume-section"
+      }
+    ],
+    "contactTitle": {
+      "zh": "联系我",
+      "en": "Contact"
+    },
+    "contacts": [
+      {
+        "type": "wechat",
+        "label": {
+          "zh": "微信",
+          "en": "WeChat"
+        },
+        "value": "xiang151911",
+        "qrImage": "/uploads/___.jpg"
+      },
+      {
+        "type": "email",
+        "label": {
+          "zh": "邮箱",
+          "en": "Email"
+        },
+        "value": "253439635@qq.com",
+        "qrImage": ""
+      }
+    ],
+    "socialTitle": {
+      "zh": "社交平台",
+      "en": "Social"
+    },
+    "socials": [],
+    "wechatLabel": "微信",
+    "phoneLabel": "电话",
+    "emailLabel": "邮箱",
+    "companyName": "高祥设计工作室",
+    "companyEn": "Gaoxiang Design Studio"
   },
   "theme": {
     "ink": "#0C0C0C",
     "accent": "#7621B0",
     "dot": "#1FD66E"
-  },
-  "sectionTitleFont": {
-    "family": "sans",
-    "weight": 900,
-    "scale": 1,
-    "letterSpacing": -0.02
   },
   "sections": {
     "works": {
@@ -156,6 +405,12 @@
       "en": "About"
     }
   },
+  "sectionTitleFont": {
+    "family": "sans",
+    "weight": 900,
+    "scale": 1,
+    "letterSpacing": -0.02
+  },
   "aboutBio": {
     "zh": "12年设计经验，从电商美工到一人 AI 设计公司。擅长 人+AI 协同交付电商视觉、包装、品牌全案与 AI 视频，并用景观设计功底做空间效果图。",
     "en": "8 years in design, from e-commerce artist to a solo AI design studio. I deliver e-commerce visuals, packaging, brand identity and AI video with human+AI, and apply my landscaping background to spatial renderings."
@@ -165,27 +420,36 @@
     "en": "Jurong Agriculture & Forestry Vocational College · Landscape Architecture　|　Landscape Designer Certificate · C1 License"
   },
   "worksGallery": [
-    "https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif",
-    "https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif",
-    "https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif",
-    "https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif",
-    "https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif",
-    "https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif",
-    "https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif",
-    "https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif",
-    "https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif",
-    "https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif",
-    "https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif",
-    "https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif",
-    "https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif",
-    "https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif",
-    "https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif",
-    "https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif",
-    "https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif",
-    "https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif",
-    "https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif",
-    "https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif",
-    "https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif"
+    {
+      "url": "https://picgocloud.com/m/fa762791-d6fb-4868-aa9a-5f4a13e5ae5a.jpeg"
+    },
+    {
+      "url": "https://picgocloud.com/m/336748bd-4d9c-4dce-8c6f-3c8f5016c0a3.jpeg"
+    },
+    {
+      "url": "https://picgocloud.com/m/7aef3e05-62d7-4f7c-83b8-b467545ae75c.jpeg"
+    },
+    {
+      "url": "https://picgocloud.com/m/f6447b19-e562-4084-8781-aa5a13308281.jpeg"
+    },
+    {
+      "url": "https://picgocloud.com/m/c664a64c-14a3-4939-98c2-5f2c93baa2c9.jpeg"
+    },
+    {
+      "url": "https://picgocloud.com/m/f61ee318-6789-445d-ae16-a43cada9bb32.jpeg"
+    },
+    {
+      "url": "https://picgocloud.com/m/47944f10-ecc5-4a9c-be2e-d7f1f750c2e0.jpeg"
+    },
+    {
+      "url": "https://picgocloud.com/m/1d76fd6c-8cb2-4d2a-8b51-596fe09b613e.jpeg"
+    },
+    {
+      "url": "https://picgocloud.com/m/310bae3f-b51b-438e-9c34-af9954a77542.jpeg"
+    },
+    {
+      "url": "https://picgocloud.com/m/fc7fe297-e674-4f7c-b85f-80d91f94e3b1.jpeg"
+    }
   ],
   "resume": [
     {
@@ -428,5 +692,6 @@
         "en": "Systematic study of landscape architecture and a Landscape Designer certificate — the base for spatial renderings."
       }
     }
-  ]
+  ],
+  "updated_at": "2026-09-09T00:32:47.423Z"
 }

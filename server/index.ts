@@ -15,7 +15,7 @@ import {
   LEAD_STATUSES,
 } from './repositories/leadsRepo';
 import { saveUpload } from './repositories/uploadRepo';
-import { requireAuth, loginHandler } from './auth';
+import { requireAuth, loginHandler, authStatusHandler, changePasswordHandler } from './auth';
 import { AppError, asyncHandler, errorHandler } from './lib/errors';
 import { leadCreateSchema, uploadSchema } from './lib/validation';
 import { notifyLead } from './lib/notify';
@@ -73,6 +73,10 @@ export function createApp() {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('X-Frame-Options', 'DENY');
     res.setHeader('Referrer-Policy', 'no-referrer');
+    res.setHeader(
+      'Content-Security-Policy',
+      "default-src 'self'; img-src 'self' data: blob:; media-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'",
+    );
     next();
   });
 
@@ -104,14 +108,14 @@ export function createApp() {
     }),
   );
 
-  // 站点配置（受保护）
+  // 站点配置（前台读取公开；后台保存才需认证）
   app.get(
     '/api/config',
-    requireAuth,
     asyncHandler(async (_req, res) => {
       res.json(getConfig());
     }),
   );
+  app.get('/api/v1/auth/status', authStatusHandler);
   app.post(
     '/api/config',
     requireAuth,
@@ -146,6 +150,9 @@ export function createApp() {
     res.clearCookie('admin_session');
     res.json({ ok: true });
   });
+
+  // 修改密码（需登录）
+  app.post('/api/v1/auth/change-password', requireAuth, (req, res) => changePasswordHandler(req, res));
 
   // 接单线索：公开提交（限流 + 校验 + 去重 + 通知）
   app.post(

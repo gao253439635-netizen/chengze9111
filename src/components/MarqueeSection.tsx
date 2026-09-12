@@ -5,7 +5,7 @@ import { useSiteConfig, pick } from "../config/SiteConfigContext";
 
 export default function MarqueeSection() {
   const { t, language } = useLanguage();
-  const { config } = useSiteConfig();
+  const { config, loaded } = useSiteConfig();
   const sectionRef = useRef<HTMLDivElement>(null);
   const [scrollOffset, setScrollOffset] = useState(0);
 
@@ -29,6 +29,31 @@ export default function MarqueeSection() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  // 后端未就绪（冷启动 / 网络抖动）时 loaded 仍为 false：
+  // 此时绝不渲染编译进包的旧作品集（"老连接"），先显示占位骨架，
+  // 待 SiteConfigContext 重试拉到真实配置后再渲染，避免旧作品一闪而过。
+  if (!loaded) {
+    return (
+      <section
+        ref={sectionRef}
+        id="marquee-section"
+        className="relative w-full bg-white pt-24 sm:pt-32 md:pt-40 pb-10 overflow-hidden z-20"
+      >
+        <div className="px-5 sm:px-8 md:px-10">
+          <SectionTitle
+            title={config.sections.works}
+            eyebrow={language === "zh" ? "精选作品" : "SELECTED WORKS"}
+            language={language}
+          />
+        </div>
+        <div className="flex flex-col gap-3 w-full px-5 sm:px-8 md:px-10">
+          <div className="h-[270px] w-full rounded-2xl bg-gray-100 animate-pulse" />
+          <div className="h-[270px] w-full rounded-2xl bg-gray-100 animate-pulse" />
+        </div>
+      </section>
+    );
+  }
 
   const half = Math.ceil(images.length / 2);
   const row1Images = images.slice(0, half);

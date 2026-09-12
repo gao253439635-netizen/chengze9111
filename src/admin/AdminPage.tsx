@@ -803,6 +803,60 @@ function Card({ title, desc, icon, actions, children }: { title: string; desc?: 
 /* ============================================================
  * 主组件（分页式后台：点击侧边栏换页，整页不滚动）
  * ========================================================== */
+function PasswordField({
+  value,
+  onChange,
+  onEnter,
+  placeholder,
+  autoFocus,
+  autoComplete,
+  className = "",
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  placeholder?: string;
+  autoFocus?: boolean;
+  autoComplete?: string;
+  className?: string;
+}) {
+  const [show, setShow] = useState(false);
+  return (
+    <div className="relative">
+      <input
+        type={show ? "text" : "password"}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => { if (e.key === "Enter" && onEnter) onEnter(); }}
+        placeholder={placeholder}
+        autoFocus={autoFocus}
+        autoComplete={autoComplete}
+        className={className + " pr-11"}
+      />
+      <button
+        type="button"
+        onClick={() => setShow((s) => !s)}
+        tabIndex={-1}
+        aria-label={show ? "隐藏密码" : "显示密码"}
+        className="absolute right-1.5 top-1/2 -translate-y-1/2 grid place-items-center w-8 h-8 rounded-lg text-white/40 hover:text-white/80 hover:bg-white/5 transition-colors"
+      >
+        {show ? (
+          <svg viewBox="0 0 24 24" className="w-[18px] h-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M2 12s3.5-7 10-7 10 7 10 7a13 13 0 0 1-2.2 2.8M6.5 6.5A13 13 0 0 1 12 5c6.5 0 10 7 10 7a13 13 0 0 1-2.2 2.8" />
+            <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
+            <line x1="3" y1="3" x2="21" y2="21" />
+          </svg>
+        ) : (
+          <svg viewBox="0 0 24 24" className="w-[18px] h-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        )}
+      </button>
+    </div>
+  );
+}
+
 export default function AdminPage() {
   const { config, loaded, save, authEnabled, loggedIn, login, logout } = useSiteConfig();
   // 登录状态
@@ -819,43 +873,42 @@ export default function AdminPage() {
     if (!ok) setLoginErr('密码错误，请重试');
   };
 
-  // 登录表单
-  if (authEnabled && !loggedIn) {
-    return (
-      <div className='h-screen overflow-hidden bg-[#0a0b0e] text-white flex items-center justify-center'>
-        <div className='w-full max-w-sm mx-4'>
-          <div className='text-center mb-8'>
-            <div className='w-14 h-14 rounded-2xl bg-gradient-to-br from-[#7621B0] to-[#1FD66E] grid place-items-center font-black text-white text-2xl shadow-lg shadow-[#7621B0]/30 mx-auto mb-4'>G</div>
-            <h1 className='text-xl font-bold text-white'>管理后台</h1>
-            <p className='text-sm text-white/40 mt-1'>请输入密码继续</p>
-          </div>
-          <div className='rounded-2xl border border-white/[0.07] bg-[#11141b] p-6 shadow-xl shadow-black/30'>
-            <div className='flex gap-2'>
-              <input
-                type='password'
-                value={loginPwd}
-                onChange={(e) => { setLoginPwd(e.target.value); setLoginErr(''); }}
-                onKeyDown={(e) => { if (e.key === 'Enter') handleLogin(); }}
-                placeholder='密码'
-                autoComplete='current-password'
-                className='flex-1 px-4 py-2.5 rounded-xl bg-[#0f1117] border border-white/10 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#7621B0] focus:ring-4 focus:ring-[#7621B0]/15 transition-all'
-                autoFocus
-              />
-              <button
-                type='button'
-                onClick={handleLogin}
-                disabled={loggingIn || !loginPwd.trim()}
-                className='px-5 py-2.5 rounded-xl bg-[#7621B0] hover:bg-[#8a2bd0] text-white text-sm font-semibold shadow-lg shadow-[#7621B0]/25 transition-all disabled:opacity-50 disabled:active:scale-100'
-              >
-                {loggingIn ? '验证中…' : '登录'}
-              </button>
-            </div>
-            {loginErr && <p className='mt-3 text-[12px] text-red-400'>{loginErr}</p>}
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // 修改密码：弹窗状态 + 提交
+  const [showPwdModal, setShowPwdModal] = useState(false);
+  const [cpCurrent, setCpCurrent] = useState('');
+  const [cpNew, setCpNew] = useState('');
+  const [cpConfirm, setCpConfirm] = useState('');
+  const [cpBusy, setCpBusy] = useState(false);
+  const [cpMsg, setCpMsg] = useState('');
+
+  const handleChangePassword = async () => {
+    setCpMsg('');
+    if (!cpCurrent.trim()) { setCpMsg('请输入当前密码'); return; }
+    if (!cpNew || cpNew.length < 6) { setCpMsg('新密码至少 6 位'); return; }
+    if (cpNew !== cpConfirm) { setCpMsg('两次输入的新密码不一致'); return; }
+    setCpBusy(true);
+    try {
+      const r = await fetch('/api/v1/auth/change-password', {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentPassword: cpCurrent, newPassword: cpNew }),
+      });
+      const data = await r.json().catch(() => ({} as any));
+      if (r.ok) {
+        setCpMsg('✅ 密码已修改，下次登录请使用新密码');
+        setCpCurrent(''); setCpNew(''); setCpConfirm('');
+        setTimeout(() => setShowPwdModal(false), 1500);
+      } else {
+        setCpMsg('❌ ' + (data?.error?.message || '修改失败'));
+      }
+    } catch {
+      setCpMsg('❌ 网络错误，请重试');
+    } finally {
+      setCpBusy(false);
+    }
+  };
+
   const [draft, setDraft] = useState<SiteConfig | null>(null);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState("");
@@ -915,10 +968,11 @@ export default function AdminPage() {
   }, [leadPage, leadFilter]);
 
   useEffect(() => {
+    if (!loggedIn) return;
     loadLeads(leadPage, leadFilter);
     const t = setInterval(() => loadLeads(leadPage, leadFilter), 60_000);
     return () => clearInterval(t);
-  }, [loadLeads, leadPage, leadFilter]);
+  }, [loadLeads, leadPage, leadFilter, loggedIn]);
 
   const updateLeadStatus = useCallback((id: number, status: string) => {
     return fetch(`/api/v1/leads/${id}`, { method: "PATCH", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status }) })
@@ -988,6 +1042,42 @@ export default function AdminPage() {
   }, [dirty, onSave]);
 
   const activeLabel = pick(sortedNavFlat.find((n) => n.id === active)?.label, language) || "后台";
+
+  if (authEnabled && !loggedIn) {
+    return (
+      <div className='h-screen overflow-hidden bg-[#0a0b0e] text-white flex items-center justify-center'>
+        <div className='w-full max-w-sm mx-4'>
+          <div className='text-center mb-8'>
+            <div className='w-14 h-14 rounded-2xl bg-gradient-to-br from-[#7621B0] to-[#1FD66E] grid place-items-center font-black text-white text-2xl shadow-lg shadow-[#7621B0]/30 mx-auto mb-4'>G</div>
+            <h1 className='text-xl font-bold text-white'>管理后台</h1>
+            <p className='text-sm text-white/40 mt-1'>请输入密码继续</p>
+          </div>
+          <div className='rounded-2xl border border-white/[0.07] bg-[#11141b] p-6 shadow-xl shadow-black/30'>
+            <div className='flex gap-2'>
+              <PasswordField
+                value={loginPwd}
+                onChange={(v) => { setLoginPwd(v); setLoginErr(''); }}
+                onEnter={handleLogin}
+                placeholder='密码'
+                autoComplete='current-password'
+                className='flex-1 px-4 py-2.5 rounded-xl bg-[#0f1117] border border-white/10 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#7621B0] focus:ring-4 focus:ring-[#7621B0]/15 transition-all'
+                autoFocus
+              />
+              <button
+                type='button'
+                onClick={handleLogin}
+                disabled={loggingIn || !loginPwd.trim()}
+                className='px-5 py-2.5 rounded-xl bg-[#7621B0] hover:bg-[#8a2bd0] text-white text-sm font-semibold shadow-lg shadow-[#7621B0]/25 transition-all disabled:opacity-50 disabled:active:scale-100'
+              >
+                {loggingIn ? '验证中…' : '登录'}
+              </button>
+            </div>
+            {loginErr && <p className='mt-3 text-[12px] text-red-400'>{loginErr}</p>}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!draft) {
     return (
@@ -1602,6 +1692,11 @@ export default function AdminPage() {
             <a href="/" target="_blank" rel="noreferrer" className={btnGhost}>
               查看前台 ↗
             </a>
+            {authEnabled && (
+              <button type="button" onClick={() => { setCpMsg(''); setShowPwdModal(true); }} className={btnGhost}>
+                修改密码
+              </button>
+            )}
             {msg && <span className={"text-xs max-w-[38vw] truncate " + (msg.startsWith("✅") ? "text-[#1FD66E]" : "text-red-400")}>{msg}</span>}
             <button onClick={onSave} disabled={saving} className={btnPrimary}>
               {saving ? (
@@ -1658,6 +1753,43 @@ export default function AdminPage() {
             }}
             onClose={() => setEditingNav(null)}
           />
+        )}
+
+        {showPwdModal && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+            onClick={() => { if (!cpBusy) setShowPwdModal(false); }}
+          >
+            <div
+              className="w-full max-w-sm rounded-2xl border border-white/10 bg-[#11141b] shadow-2xl shadow-black/50 p-5 flex flex-col gap-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-bold text-white">修改后台密码</h3>
+                <button type="button" onClick={() => setShowPwdModal(false)} disabled={cpBusy} className="text-white/40 hover:text-white text-lg leading-none disabled:opacity-40">✕</button>
+              </div>
+              <p className="text-[11px] text-white/35 leading-snug">修改后下次登录请使用新密码；新密码至少 6 位。</p>
+              <label className="flex flex-col gap-1.5">
+                <span className="text-[12px] text-white/55">当前密码</span>
+                <PasswordField value={cpCurrent} onChange={(v) => setCpCurrent(v)} placeholder="请输入当前密码" autoComplete="current-password" />
+              </label>
+              <label className="flex flex-col gap-1.5">
+                <span className="text-[12px] text-white/55">新密码</span>
+                <PasswordField value={cpNew} onChange={(v) => setCpNew(v)} placeholder="至少 6 位" autoComplete="new-password" />
+              </label>
+              <label className="flex flex-col gap-1.5">
+                <span className="text-[12px] text-white/55">确认新密码</span>
+                <PasswordField value={cpConfirm} onChange={(v) => setCpConfirm(v)} placeholder="再次输入新密码" autoComplete="new-password" onEnter={handleChangePassword} />
+              </label>
+              {cpMsg && <p className={"text-[12px] " + (cpMsg.startsWith('✅') ? 'text-[#1FD66E]' : 'text-red-400')}>{cpMsg}</p>}
+              <div className="flex items-center justify-end gap-2 pt-1">
+                <button type="button" onClick={() => setShowPwdModal(false)} disabled={cpBusy} className={btnGhost}>取消</button>
+                <button type="button" onClick={handleChangePassword} disabled={cpBusy} className={btnPrimary}>
+                  {cpBusy ? '修改中…' : '确认修改'}
+                </button>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>

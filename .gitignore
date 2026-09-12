@@ -14,3 +14,10 @@ dist_old_*/
 # 大媒体文件（部署后从 Railway 上传）
 public/hero/portfolio.png
 public/hero/hero-particles.mp4
+
+# 运行时上传目录（后台上传的图片，不入库）
+public/uploads/
+
+# 根目录意外落下的 SQLite 副本（含客户线索 PII，绝不入库）
+*.db
+check_db.cjs

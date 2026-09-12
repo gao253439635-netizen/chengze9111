@@ -49,55 +49,66 @@ export function SiteConfigProvider({
   const [authEnabled, setAuthEnabled] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
 
-  // 检查认证状态
-  const checkAuth = useCallback(async () => {
+  // 拉取认证状态 + 公开配置：成功返回 true，失败（含后端冷启动未就绪）返回 false
+  const tryLoadConfig = useCallback(async (): Promise<boolean> => {
     try {
-      const r = await fetch("/api/config", { cache: "no-store", credentials: "include" });
-      if (r.status === 401) {
-        setAuthEnabled(true);
-        setLoggedIn(false);
-      } else if (r.ok) {
-        setAuthEnabled(true);
-        setLoggedIn(true);
-        // 重新加载配置
-        const json = await r.json();
-        if (json && typeof json === "object" && Object.keys(json).length) {
-          setConfig(deepMerge(defaultSiteConfig, json));
-        }
-        setLoaded(true);
-      } else {
-        setAuthEnabled(false);
-        setLoaded(true);
+      const stR = await fetch("/api/v1/auth/status", { cache: "no-store", credentials: "include" });
+      if (!stR.ok) return false;
+      const st = await stR.json();
+      setAuthEnabled(!!st.authEnabled);
+      setLoggedIn(!!st.loggedIn);
+
+      const cfgR = await fetch("/api/config", { cache: "no-store", credentials: "include" });
+      if (!cfgR.ok) return false;
+      const json = await cfgR.json();
+      if (json && typeof json === "object" && Object.keys(json).length) {
+        setConfig(deepMerge(defaultSiteConfig, json));
       }
+      return true;
     } catch {
-      setAuthEnabled(false);
-      setLoaded(true);
+      return false;
     }
   }, []);
 
-  useEffect(() => {
-    let active = true;
-    // 先检查认证状态
-    checkAuth().then(() => {
-      if (!active) return;
-      // 如果未认证且需要认证，不自动加载配置；否则正常加载
-      if (!authEnabled || loggedIn) {
-        fetch("/api/config", { cache: "no-store", credentials: "include" })
-          .then((r) => (r.ok ? r.json() : {}))
-          .then((data) => {
-            if (!active) return;
-            if (data && typeof data === "object" && Object.keys(data).length) {
-              setConfig(deepMerge(defaultSiteConfig, data));
-            }
-            setLoaded(true);
-          })
-          .catch(() => {
-            if (active) setLoaded(true);
-          });
+  // 检查认证状态 + 拉取配置，带退避重试。
+  // 关键：后端冷启动（~1.5min）期间绝不把 loaded 置 true，
+  // 避免首页回退到编译进包的 defaultSiteConfig（旧作品集 = "老连接"）。
+  // 只有真正拉到 /api/config 才置 loaded=true；失败则保持 false 并退避重试。
+  const checkAuth = useCallback(() => {
+    let cancelled = false;
+    let backoff = 1000;
+    const MAX_BACKOFF = 8000;
+
+    const attempt = async () => {
+      if (cancelled) return;
+      const ok = await tryLoadConfig();
+      if (ok) {
+        setLoaded(true);
+        return;
       }
-    });
-    return () => { active = false; };
-  }, [authEnabled, loggedIn, checkAuth]);
+      scheduleRetry();
+    };
+
+    const scheduleRetry = () => {
+      if (cancelled) return;
+      setTimeout(() => {
+        if (cancelled) return;
+        backoff = Math.min(backoff * 2, MAX_BACKOFF);
+        void attempt();
+      }, backoff);
+    };
+
+    void attempt();
+    return () => {
+      cancelled = true;
+    };
+  }, [tryLoadConfig]);
+
+  useEffect(() => {
+    // 首次挂载：探测认证状态 + 拉取公开配置（失败自动退避重试）
+    const cancel = checkAuth();
+    return cancel;
+  }, [checkAuth]);
 
   // 把配色写入 CSS 变量，全站即时生效
   useEffect(() => {

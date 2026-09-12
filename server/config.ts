@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import crypto from 'crypto';
 dotenv.config();
 
 function boolEnv(name: string, fallback: boolean): boolean {
@@ -12,8 +13,12 @@ function intEnv(name: string, fallback: number): number {
   return Number.isFinite(v) ? v : fallback;
 }
 
-const DEFAULT_JWT_SECRET = 'dev-insecure-secret-change-me';
-const DEFAULT_ADMIN_PASSWORD = 'gaoxiang2026';
+const DEFAULT_JWT_SECRET = 'dev-insecure-secret-change-me'; // 仅用于 fail-closed 比对，非运行时密钥
+const DEFAULT_ADMIN_PASSWORD = '__CHANGE_ME__'; // 占位，非真实口令
+
+// 运行时密钥：未通过环境变量提供时生成随机值（不写死、不落盘），避免源码携带固定密钥
+const runtimeJwtSecret = process.env.JWT_SECRET || crypto.randomBytes(32).toString('hex');
+const runtimeSessionSecret = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
 
 // 端口策略（零额外依赖）：
 // - 生产 `npm run start`（npm_lifecycle_event==='start'）默认 9111，全托管静态+API；
@@ -32,8 +37,8 @@ export const config = {
   dbPath: process.env.DB_PATH || 'data/app.db',
   authEnabled: boolEnv('AUTH_ENABLED', false),
   adminPassword: process.env.ADMIN_PASSWORD || DEFAULT_ADMIN_PASSWORD,
-  jwtSecret: process.env.JWT_SECRET || DEFAULT_JWT_SECRET,
-  sessionSecret: process.env.SESSION_SECRET || DEFAULT_JWT_SECRET,
+  jwtSecret: runtimeJwtSecret,
+  sessionSecret: runtimeSessionSecret,
   notifyWebhookUrl: process.env.NOTIFY_WEBHOOK_URL || '',
   trustProxy: boolEnv('TRUST_PROXY', false),
   leadsMaxPerMin: intEnv('LEADS_MAX_PER_MIN', 10),
