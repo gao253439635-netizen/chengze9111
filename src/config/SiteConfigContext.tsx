@@ -49,8 +49,21 @@ export function SiteConfigProvider({
   const [authEnabled, setAuthEnabled] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
 
-  // 拉取认证状态 + 公开配置：成功返回 true，失败（含后端冷启动未就绪）返回 false
-  const tryLoadConfig = useCallback(async (): Promise<boolean> => {
+  // 静态兜底配置：Cloudflare Pages 纯静态托管时使用（/siteConfig.json 编译进 dist/）
+  const loadFromStatic = useCallback(async (): Promise<SiteConfig | null> => {
+    try {
+      const r = await fetch("/siteConfig.json", { cache: "no-store", credentials: "include" });
+      if (!r.ok) return null;
+      const json = await r.json();
+      if (json && typeof json === "object" && Object.keys(json).length) return json as SiteConfig;
+      return null;
+    } catch {
+      return null;
+    }
+  }, []);
+
+  // 拉取后端（本地 / 自有服务器）：成功返回 true，失败返回 false（走静态兜底）
+  const loadFromBackend = useCallback(async (): Promise<boolean> => {
     try {
       const stR = await fetch("/api/v1/auth/status", { cache: "no-store", credentials: "include" });
       if (!stR.ok) return false;
@@ -70,45 +83,48 @@ export function SiteConfigProvider({
     }
   }, []);
 
-  // 检查认证状态 + 拉取配置，带退避重试。
-  // 关键：后端冷启动（~1.5min）期间绝不把 loaded 置 true，
-  // 避免首页回退到编译进包的 defaultSiteConfig（旧作品集 = "老连接"）。
-  // 只有真正拉到 /api/config 才置 loaded=true；失败则保持 false 并退避重试。
-  const checkAuth = useCallback(() => {
+  useEffect(() => {
+    // 加载策略：
+    // 1) 优先拉后端（本地/自有服务器，支持 /admin 实时编辑）；成功即接管并停止。
+    // 2) 后端不可用（Cloudflare Pages 纯静态）→ 拉 /siteConfig.json 兜底，并标记 loaded 防无限转圈。
+    // 3) 后台有限轮询后端：本地/自有服务器冷启动就绪后自动升级为实时配置（/admin 编辑即时可见）；
+    //    轮询有次数上限，纯静态环境不会无限打请求。
     let cancelled = false;
-    let backoff = 1000;
-    const MAX_BACKOFF = 8000;
+    let backoff = 2000;
+    let attempts = 0;
+    const MAX_BACKOFF = 30000;
+    const MAX_ATTEMPTS = 12;
 
-    const attempt = async () => {
-      if (cancelled) return;
-      const ok = await tryLoadConfig();
-      if (ok) {
+    const init = async () => {
+      if (!cancelled && (await loadFromBackend())) {
         setLoaded(true);
         return;
       }
-      scheduleRetry();
+      const staticJson = await loadFromStatic();
+      if (!cancelled && staticJson) {
+        setConfig(deepMerge(defaultSiteConfig, staticJson));
+      }
+      // 关键：无论后端/静态是否就绪，都标记已加载，避免首页无限转圈（纯静态必须）
+      if (!cancelled) setLoaded(true);
+
+      const poll = async () => {
+        if (cancelled || ++attempts > MAX_ATTEMPTS) return;
+        const ok = await loadFromBackend();
+        if (ok) {
+          setLoaded(true);
+          return; // 后端已接管，停止轮询
+        }
+        backoff = Math.min(backoff * 1.8, MAX_BACKOFF);
+        setTimeout(poll, backoff);
+      };
+      setTimeout(poll, backoff);
     };
 
-    const scheduleRetry = () => {
-      if (cancelled) return;
-      setTimeout(() => {
-        if (cancelled) return;
-        backoff = Math.min(backoff * 2, MAX_BACKOFF);
-        void attempt();
-      }, backoff);
-    };
-
-    void attempt();
+    void init();
     return () => {
       cancelled = true;
     };
-  }, [tryLoadConfig]);
-
-  useEffect(() => {
-    // 首次挂载：探测认证状态 + 拉取公开配置（失败自动退避重试）
-    const cancel = checkAuth();
-    return cancel;
-  }, [checkAuth]);
+  }, [loadFromBackend, loadFromStatic]);
 
   // 把配色写入 CSS 变量，全站即时生效
   useEffect(() => {

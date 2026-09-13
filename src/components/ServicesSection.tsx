@@ -63,6 +63,9 @@ export default function ServicesSection({ onContactClick }: { onContactClick?: (
                           alt={name}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                           referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            e.currentTarget.style.display = "none";
+                          }}
                         />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center">

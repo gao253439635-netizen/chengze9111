@@ -100,6 +100,9 @@ export default function MarqueeSection() {
                   className="w-full h-full object-cover"
                   loading="lazy"
                   referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
                 />
               </div>
             ))}
@@ -126,6 +129,9 @@ export default function MarqueeSection() {
                   className="w-full h-full object-cover"
                   loading="lazy"
                   referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
                 />
               </div>
             ))}
