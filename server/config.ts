@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 import crypto from 'crypto';
-dotenv.config();
+// override:true 让 .env 成为唯一权威来源，避免 shell/启动环境里残留的
+// AUTH_ENABLED=true 等变量静默盖过 .env（曾导致改了 .env 却不生效、保存仍 401）。
+dotenv.config({ override: true });
 
 function boolEnv(name: string, fallback: boolean): boolean {
   const v = process.env[name];
