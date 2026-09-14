@@ -1,4 +1,0 @@
-﻿PORT 9111 : FREE
-PORT 9211 : FREE
-PORT 9112 : FREE
-node_modules EXISTS
