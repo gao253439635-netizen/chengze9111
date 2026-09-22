@@ -5,14 +5,14 @@
     "nameEn": "Gao",
     "titleEn": "AI DESIGN ARCHMAGE",
     "tagline": {
-      "zh": "高祥 AI设计魔法师",
-      "en": "Gao AI Design Archmage"
+      "zh": "",
+      "en": ""
     }
   },
   "hero": {
     "subtitle": {
-      "zh": "人 + AI 承接电商设计 / 包装 / 品牌全案 / AI 视频，交付快、审美稳、改稿不慌。",
-      "en": "Human + AI delivery for e-commerce, packaging, brand identity and AI video — fast turnaround, solid taste, stress-free revisions."
+      "zh": "",
+      "en": ""
     },
     "ctaText": {
       "zh": "免费资料包",
@@ -22,7 +22,7 @@
       "zh": "",
       "en": ""
     },
-    "video": "/hero/hero-particles.mp4",
+    "video": "https://picgocloud.com/m/ce306307-e8f8-4978-8166-64f06d1fbbe9.mp4",
     "poster": "",
     "videoScrub": {
       "enabled": false,
@@ -182,7 +182,7 @@
         "zh": "电商设计",
         "en": "E-commerce Design"
       },
-      "image": "/uploads/_____________202608221139_mt3u0vtshm5taj.jpg",
+      "image": "https://picgocloud.com/m/ad26bf5d-bc9b-422f-a5bc-c8732211c6f9.jpeg",
       "link": "#marquee-section",
       "desc": {
         "zh": "主图 / 详情页 / 直通车，人+AI 快速出图改稿",
@@ -195,7 +195,7 @@
         "zh": "平面设计",
         "en": "Graphic Design"
       },
-      "image": "/uploads/_____________202608221139_2_mt3u0zcu1665up.jpg",
+      "image": "https://picgocloud.com/m/604914e8-5c3e-4f38-ac84-2270c03753f4.jpeg",
       "link": "#marquee-section",
       "desc": {
         "zh": "Logo / VI / 海报 / 物料，系统化品牌视觉",
@@ -208,7 +208,7 @@
         "zh": "景观 / 空间设计",
         "en": "Landscape & Spatial Design"
       },
-      "image": "/uploads/_____________202608221139_3_mt3u13q9gz5td2.jpg",
+      "image": "https://picgocloud.com/m/fd4a28eb-d95b-475c-959c-b115d8db5d96.jpeg",
       "link": "#marquee-section",
       "desc": {
         "zh": "景观 / 室内 / 效果图，园林科班直接落地",
@@ -221,7 +221,7 @@
         "zh": "网页 UI / 前端",
         "en": "Web UI / Front-end"
       },
-      "image": "/uploads/_____________202608221139_4_mt3u0qjggwizat.jpg",
+      "image": "https://picgocloud.com/m/3bb7624e-b2be-4a15-89b2-7e0effb4bd8c.jpeg",
       "link": "#marquee-section",
       "desc": {
         "zh": "官网 / 后台 UI + React / Vite 前端落地",
@@ -234,7 +234,7 @@
         "zh": "3D 建模 / 渲染",
         "en": "3D Modeling & Rendering"
       },
-      "image": "/uploads/_____________202608221139_5_mt3u0mszmgadam.jpg",
+      "image": "https://picgocloud.com/m/f5e81f85-23ef-40da-9c70-ab9ea0797e4b.jpeg",
       "link": "#marquee-section",
       "desc": {
         "zh": "产品建模 / 渲染 / 场景效果图",
@@ -247,7 +247,7 @@
         "zh": "视频设计",
         "en": "Video Design"
       },
-      "image": "/uploads/_____________2K_202608221253_mt3xpgsu24ope0.jpg",
+      "image": "https://picgocloud.com/m/7ca4f68a-8376-4ce6-8558-e09e3ec316f9.jpeg",
       "link": "#marquee-section",
       "desc": {
         "zh": "口播 / 产品 / 广告片，AI 生成 + 剪辑交付",
@@ -260,7 +260,7 @@
         "zh": "MCU 嵌入式开发",
         "en": "MCU Embedded Development"
       },
-      "image": "/uploads/_____________2K_202608221253__1__mt3xpw5p29vgbj.jpg",
+      "image": "https://picgocloud.com/m/0208c47e-d26c-43e5-ac15-824a733acb22.jpeg",
       "link": "#marquee-section",
       "desc": {
         "zh": "单片机 / 传感器 / 智能硬件小项目",
@@ -273,7 +273,7 @@
         "zh": "FDE 前线部署",
         "en": "FDE Field Deployment"
       },
-      "image": "/uploads/_______________________202608221139_mt3u1i5r4ebz4k.jpg",
+      "image": "https://picgocloud.com/m/50a4c2bc-9806-4dff-a0cf-c5e9d343cb52.jpeg",
       "link": "#marquee-section",
       "desc": {
         "zh": "现场部署 / 联调 / 远程交付",
@@ -349,6 +349,13 @@
           "en": "About"
         },
         "link": "#resume-section"
+      },
+      {
+        "label": {
+          "zh": "服务入口",
+          "en": "Admin"
+        },
+        "link": "/admin"
       }
     ],
     "contactTitle": {
@@ -363,7 +370,7 @@
           "en": "WeChat"
         },
         "value": "xiang151911",
-        "qrImage": "/uploads/___.jpg"
+        "qrImage": "https://picgocloud.com/m/800b6f96-d748-4546-b8a5-f29c8011e4ef.png"
       },
       {
         "type": "email",
@@ -424,31 +431,34 @@
       "url": "https://picgocloud.com/m/fa762791-d6fb-4868-aa9a-5f4a13e5ae5a.jpeg"
     },
     {
-      "url": "https://picgocloud.com/m/336748bd-4d9c-4dce-8c6f-3c8f5016c0a3.jpeg"
+      "url": "https://picgocloud.com/m/c673852d-4a0a-40c5-99e7-77a72d6ef0ed.gif"
+    },
+    {
+      "url": "https://picgocloud.com/m/8a8a046e-3590-484b-82e9-6e80af2a5041.gif"
+    },
+    {
+      "url": "https://picgocloud.com/m/569afd7b-9c59-47e1-8659-633b96e40721.gif"
+    },
+    {
+      "url": "https://picgocloud.com/m/9caf8917-7c29-42b1-bd7a-1aa17c3db15d.gif"
     },
     {
       "url": "https://picgocloud.com/m/7aef3e05-62d7-4f7c-83b8-b467545ae75c.jpeg"
     },
     {
-      "url": "https://picgocloud.com/m/f6447b19-e562-4084-8781-aa5a13308281.jpeg"
+      "url": "https://picgocloud.com/m/249a133c-46a3-4d42-8ae1-da60093843a4.gif"
     },
     {
-      "url": "https://picgocloud.com/m/c664a64c-14a3-4939-98c2-5f2c93baa2c9.jpeg"
-    },
-    {
-      "url": "https://picgocloud.com/m/f61ee318-6789-445d-ae16-a43cada9bb32.jpeg"
-    },
-    {
-      "url": "https://picgocloud.com/m/47944f10-ecc5-4a9c-be2e-d7f1f750c2e0.jpeg"
-    },
-    {
-      "url": "https://picgocloud.com/m/1d76fd6c-8cb2-4d2a-8b51-596fe09b613e.jpeg"
+      "url": "https://picgocloud.com/m/a8d4b6d6-38c5-474e-8a2f-066280a50832.gif"
     },
     {
       "url": "https://picgocloud.com/m/310bae3f-b51b-438e-9c34-af9954a77542.jpeg"
     },
     {
       "url": "https://picgocloud.com/m/fc7fe297-e674-4f7c-b85f-80d91f94e3b1.jpeg"
+    },
+    {
+      "url": "https://picgocloud.com/m/47944f10-ecc5-4a9c-be2e-d7f1f750c2e0.jpeg"
     }
   ],
   "resume": [
@@ -456,7 +466,7 @@
       "num": "01",
       "period": "2025 – 至今",
       "company": {
-        "zh": "一人设计公司（自由接单）",
+        "zh": "一人设计（自由接单）",
         "en": "Solo Design Studio"
       },
       "title": {
