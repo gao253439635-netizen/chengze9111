@@ -137,12 +137,18 @@ export function SiteConfigProvider({
   }, [config.theme]);
 
   const login = useCallback(async (password: string): Promise<boolean> => {
-    const r = await fetch("/api/v1/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ password }),
-    });
+    let r: Response;
+    try {
+      r = await fetch("/api/v1/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ password }),
+      });
+    } catch {
+      // 网络层失败：后端没起 / 代理不通 / 跨域被拦 —— 这跟密码无关
+      throw new Error("NETWORK");
+    }
     if (r.ok) {
       setLoggedIn(true);
       // 登录后加载配置
@@ -157,7 +163,8 @@ export function SiteConfigProvider({
         .catch(() => setLoaded(true));
       return true;
     }
-    return false;
+    if (r.status === 401) return false; // 真密码错
+    throw new Error("SERVICE"); // 后端活着但返回非预期状态码（如 404/502/500）
   }, []);
 
   const logout = useCallback(async () => {

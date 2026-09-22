@@ -868,9 +868,19 @@ export default function AdminPage() {
     if (!loginPwd.trim()) return;
     setLoggingIn(true);
     setLoginErr('');
-    const ok = await login(loginPwd);
-    setLoggingIn(false);
-    if (!ok) setLoginErr('密码错误，请重试');
+    try {
+      const ok = await login(loginPwd);
+      if (!ok) setLoginErr('密码错误，请重试');
+    } catch (e) {
+      const msg = (e as Error)?.message;
+      if (msg === 'NETWORK') {
+        setLoginErr('服务异常：无法连接后端。请确认后端已启动（本机 start-dev.bat 跑 dev:all，或生产 npm run start / Railway 已部署且 VITE_API_BASE 已设）');
+      } else {
+        setLoginErr('服务异常：后端返回错误，请检查服务日志');
+      }
+    } finally {
+      setLoggingIn(false);
+    }
   };
 
   // 修改密码：弹窗状态 + 提交

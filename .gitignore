@@ -21,3 +21,6 @@ public/uploads/
 # 根目录意外落下的 SQLite 副本（含客户线索 PII，绝不入库）
 *.db
 check_db.cjs
+
+# 本地诊断/临时文件（排查登录等问题时产生，勿提交）
+scratch/

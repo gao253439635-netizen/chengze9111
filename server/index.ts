@@ -81,12 +81,16 @@ export function createApp() {
   });
 
   // CORS（显式 origins；默认 * 仅本机）
+  // 路线A 前端域名 → Railway 后端是跨域，必须回显具体 Origin 并允许凭据，
+  // 否则浏览器拒绝带会话 Cookie 的跨域请求（/admin 登录后读不到配置）。
   app.use((req, res, next) => {
     const origin = req.headers.origin;
-    if (config.corsOrigins.includes('*')) {
-      res.setHeader('Access-Control-Allow-Origin', origin || '*');
-    } else if (origin && config.corsOrigins.includes(origin)) {
+    const allowed =
+      config.corsOrigins.includes('*') ||
+      (!!origin && config.corsOrigins.includes(origin));
+    if (allowed && origin) {
       res.setHeader('Access-Control-Allow-Origin', origin);
+      res.setHeader('Access-Control-Allow-Credentials', 'true');
     }
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,PATCH');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -147,7 +151,11 @@ export function createApp() {
 
   // 登出
   app.post('/api/v1/auth/logout', (req, res) => {
-    res.clearCookie('admin_session');
+    res.clearCookie('admin_session', {
+      httpOnly: true,
+      sameSite: config.trustProxy ? 'none' : 'lax',
+      secure: !!config.trustProxy,
+    });
     res.json({ ok: true });
   });
 

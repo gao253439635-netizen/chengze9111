@@ -133,7 +133,8 @@ export function loginHandler(req: Request, res: Response) {
     const token = signSession(config.sessionSecret);
     res.cookie(SESSION_COOKIE, token, {
       httpOnly: true,
-      sameSite: 'lax',
+      // 路线A 是跨域（前端域名 → Railway 后端）：生产(trustProxy)必须用 None 才能被浏览器跨站携带；本机同站用 lax
+      sameSite: config.trustProxy ? 'none' : 'lax',
       secure: !!config.trustProxy,
       maxAge: SESSION_TTL_MS,
     });
