@@ -46,7 +46,9 @@ export function SiteConfigProvider({
 }) {
   const [config, setConfig] = useState<SiteConfig>(defaultSiteConfig);
   const [loaded, setLoaded] = useState(false);
-  const [authEnabled, setAuthEnabled] = useState(false);
+  // 安全默认（fail-closed）：宁可锁死也不要在无后端时开门。
+  // 后端可达且明确返回 authEnabled=false（本机免密模式）才解锁；否则一律要求登录。
+  const [authEnabled, setAuthEnabled] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
 
   // 静态兜底配置：Cloudflare Pages 纯静态托管时使用（/siteConfig.json 编译进 dist/）
